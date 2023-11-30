@@ -27,10 +27,21 @@ public class Start
         kreis.setOpaque(false);
         c.add(kreis);
         
-        Zeiger zeiger = new Zeiger(10);
-        zeiger.setOpaque(false);
-        c.add(zeiger);
-        zeiger.start();
+        Zeiger sekundenZeiger = new Zeiger(10);
+        Zeiger minutenZeiger = new Zeiger(600);
+        Zeiger stundenZeiger = new Zeiger(36000);
+        
+        sekundenZeiger.setOpaque(false);
+        c.add(sekundenZeiger);
+        sekundenZeiger.start();
+        
+        minutenZeiger.setOpaque(false);
+        c.add(minutenZeiger);
+        minutenZeiger.start();
+        
+        stundenZeiger.setOpaque(false);
+        c.add(stundenZeiger);
+        stundenZeiger.start();
         
         frm.setSize(300, 300);
         frm.setVisible(true);
