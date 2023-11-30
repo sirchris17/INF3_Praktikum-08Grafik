@@ -8,6 +8,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,6 +30,8 @@ public class Zeiger extends JComponent implements Runnable
     private ExecutorService eService;
     private Future task;
     
+    private AffineTransform at;
+    
     public Zeiger(long schlafzeit)
     {
         this.schlafzeit = schlafzeit;
@@ -39,6 +42,8 @@ public class Zeiger extends JComponent implements Runnable
         
         eService = Executors.newSingleThreadExecutor();
         task = null;
+        
+        this.at = new AffineTransform();
     }
     
     public void start()
@@ -62,11 +67,12 @@ public class Zeiger extends JComponent implements Runnable
         
         float x1 = breite/2;
         float y1 = hoehe/2;
-        float x2 = x1 + laenge * (float)(Math.cos(Math.toRadians(winkel)));
-        float y2 = y1 - laenge * (float)(Math.sin(Math.toRadians(winkel)));
+        float x2 = x1 + laenge;
+        float y2 = y1;
         
         line.setLine(x1,y1, x2, y2);
         
+        g2.rotate(Math.toRadians(winkel), x1, y1);
         g2.setStroke(stift);
         g2.draw(line);
     }
